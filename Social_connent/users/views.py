@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import registrationForm
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
+from posts.models import Post, Comment
+from .models import User
 
 def user_registration(request):
     if request.method == "POST":
@@ -33,5 +34,8 @@ def user_logout(request):
     logout(request)
     return redirect('user_login')
 
+@login_required
 def profile(request):
-    return render(request, 'users/profile.html')
+    user_posts = Post.objects.filter(author = request.user).order_by('-created_at')
+    comments = Post.comment_set.all()
+    return render(request, 'users/profile.html',{'user_posts':user_posts, 'comments':comments})
