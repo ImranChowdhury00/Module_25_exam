@@ -2,8 +2,10 @@
     {% csrf_token %}
     <label for="Textarea" class="form-label"><h3>Post Something</h3></label>
     <textarea class="form-control" id="Textarea" name="content" rows="3" placeholder="What's on your mind"></textarea>
+    
     <label for="formFile" class="form-label"></label>
-    <input class="form-control" type="file" id="formFile"> 
+    <input class="form-control" type="file" name="image" id="formFile"> 
+    
     <div class="d-flex justify-content-end">
         <button type ="Submit" class="btn btn-outline-success mt-3 ">Post</button>
     </div>

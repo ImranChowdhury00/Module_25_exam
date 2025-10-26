@@ -2,20 +2,32 @@
 {% block content %}
     <div class="container mt-4">
         {% for eachPost in posts %}
-        <div class="card mb-2 shadow-sm" > 
-            <div class="card-body">
-                <div class="text-center mb-2">
-                    {% if eachPost.image %}
-                    <img src="{{eachPost.image.url}}" class="card-img-top border"
-                    style="width: 250px; height: auto;"> 
-                    {% endif %} 
-                </div>
-                                 
-                <p class="card-text ">{{eachPost.content}}</p>
-                <small class="text-muted d-block">By {{ eachPost.author }} on {{ eachPost.created_at }}</small>
+            <div class="card mb-2 shadow-sm" > 
+                <div class="card-body">
+                    <div class="text-center mb-2">
+                        {% if eachPost.image %}
+                        <img src="{{eachPost.image.url}}" class="card-img-top border"
+                        style="width: 250px; height: auto;"> 
+                        {% endif %} 
+                    </div>
+                                    
+                    <p class="card-text ">{{eachPost.content}}</p>
 
-            </div>     
-        </div>
+                    <small class="text-muted d-block">By {{ eachPost.author }} on {{ eachPost.created_at }}</small>
+
+                    {% if request.user in eachPost.liked_users.all %}
+                    <a class="btn btn-sm btn-outline-danger mt-3" href="{% url 'like_post' eachPost.id %}">
+                        👎🏻 Unlike {{ eachPost.liked_users.count}}
+                    </a>
+                    {% else %}
+                    <a class="btn btn-sm btn-outline-primary mt-3" href="{% url 'like_post' eachPost.id %}">
+                        👍🏻 Like {{ eachPost.liked_users.count}}
+                    </a>
+                    {% endif %}
+                    
+                </div>     
+            </div>
+
         {% empty%}
         <p> No posts found.</p>
         {% endfor %}

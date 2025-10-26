@@ -39,7 +39,7 @@ def user_logout(request):
 @login_required
 def profile(request):
     if request.method == "POST":
-        form = postForm(request.POST)
+        form = postForm(request.POST ,request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
