@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container mt-4">
+        {% for eachPost in posts %}
+        <div class="card mb-2 shadow-sm" > 
+            <div class="card-body">
+                <div class="text-center mb-2">
+                    {% if eachPost.image %}
+                    <img src="{{eachPost.image.url}}" class="card-img-top border"
+                    style="width: 250px; height: auto;"> 
+                    {% endif %} 
+                </div>
+                                 
+                <p class="card-text ">{{eachPost.content}}</p>
+                <small class="text-muted d-block">By {{ eachPost.author }} on {{ eachPost.created_at }}</small>
+
+            </div>     
+        </div>
+        {% empty%}
+        <p> No posts found.</p>
+        {% endfor %}
+    </div>
+{% endblock content %}

@@ -8,12 +8,9 @@
     </div>
 </div>
 <div class="container mb-3">
-    <label for="exampleFormControlTextarea1" class="form-label"><h3>Post Something</h3></label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="What's on your mind"></textarea> 
-    <div class="d-flex justify-content-end">
-        <button class="btn btn-outline-info mt-2 me-2">Add Image</button>
-        <button class="btn btn-outline-success mt-2 ">Post</button>
-    </div>
+
+    {% include "posts/create_post.html" %}
+
     <h1 class="text-center mb-3">Your Previous Posts</h1>
     <div>
         {% for eachPost in user_posts %}
@@ -21,12 +18,15 @@
             <div class="card-body">
 
                 <div class="d-flex justify-content-end mb-2">
-                    <a href="#" class="btn btn-outline-warning me-2">Edit</a>
-                    <a href="#" class="btn btn-outline-danger">Delete</a>
+                    <a href="{% url "post_edit" eachPost.id %}" class="btn btn-outline-warning me-2">Edit</a>
+                    <a href="{% url "post_delete" eachPost.id %}" class="btn btn-outline-danger">Delete</a>
                 </div>
-                {% if eachPost.image %}
-                <img src="..." class="card-img-top" alt="..."> 
-                {% endif %}                
+                <div class="text-center mb-2">
+                    {% if eachPost.image %}
+                    <img src="{{eachPost.image.url}}" class="card-img-top border"
+                    style="width: 250px; height: auto;"> 
+                    {% endif %} 
+                </div>             
                 
                 <p class="card-text">{{eachPost.content}}</p>
                 <small class="text-muted d-block">By {{ eachPost.author }} on {{ eachPost.created_at }}</small>
